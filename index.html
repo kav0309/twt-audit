@@ -1,314 +1,1519 @@
-📊 Performance Audit · Jun 2026
-The Whole Truth Foods
-Funnel & Media Mix Audit
-Budget Period · FY 2026
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Whole Truth Foods — Funnel & Media Mix Audit</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Epilogue:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0e0e0b;
+    --surface: #161612;
+    --border: #2a2a24;
+    --accent: #c8f060;
+    --accent2: #f0c840;
+    --accent3: #f06040;
+    --text: #f0ede4;
+    --muted: #7a7a68;
+    --meta: #4267B2;
+    --google: #EA4335;
+    --influencer: #c8f060;
+    --card: #1a1a15;
+  }
 
-Monthly Budget · ₹10,00,000
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-Channels · Meta · Google · Influencer
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Epilogue', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-Framework · Simulated D2C Model
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
 
-Key Performance Indicators
-Monthly Budget
-₹10L
-Across 3 channels
-Blended CAC
-₹408
-Cost to acquire 1 customer
-↑ Meta driving up avg
-Blended ROAS
-2.9×
-Revenue per ₹1 spent
-↑ Influencer anchoring
-Customers / Month
-2,451
-New paid acquisitions
-↑ Funnel opt. potential
-Funnel Conversion
-1.8%
-Impression → Purchase
-↓ Cart abandon = gap
-Est. Monthly Revenue
-₹28.7L
-At avg order ₹1,170
-↑ Healthy for D2C
-Channel Performance
-ROAS by Channel
-Revenue returned per ₹1 spent · Current allocation
-CAC by Channel
-Cost to acquire one paying customer (₹)
-Budget Allocation
-Current split across channels
-ROAS Trend — Last 6 Months
-Channel ROAS over time · simulated trajectory
-Conversion Funnel
-Full Funnel — Impression to Repeat Purchase
-Monthly volume estimates · drop-off % at each stage · Gap analysis
-Impressions
-18,00,000
-100.0%
-Top of funnel
-│
-Reach / Clicks
-54,000
-3.0%
-↓ 97% drop
-│
-Website Visits
-38,000
-2.1%
-↓ 30% drop
-│
-Product Page View
-22,000
-1.2%
-↓ 42% drop
-│
-Add to Cart
-8,800
-0.5%
-↓ 60% drop
-│
-Purchase
-2,800
-0.2%
-↓ 68% drop
-│
-Repeat Purchase
-784
-0.0%
-↓ 72% drop
-What-If Scenarios
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
-🚀
-Double Influencer Budget
-Shift 30% from Meta → Influencer. Best-performing channel gets more fuel.
-ROAS
-3.4×
-↑ 0.5 vs base
-CAC
-₹336
-↓ ₹72 vs base
-Revenue
-₹33.8L
-↑ ₹5.1L vs base
-Customers
-2,976
-+525 vs base
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0 24px;
+    margin-bottom: 48px;
+  }
 
-✂️
-Cut Meta Entirely
-Zero Meta spend. Redistribute equally to Google & Influencer.
-ROAS
-3.6×
-↑ 0.7 vs base
-CAC
-₹300
-↓ ₹108 vs base
-Revenue
-₹36.0L
-↑ ₹7.3L vs base
-Customers
-3,333
-+882 vs base
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 
-🔍
-Google-Heavy Mix
-Lean into search intent. Strong for bottom-of-funnel conversion.
-ROAS
-3.3×
-↑ 0.5 vs base
-CAC
-₹338
-↓ ₹70 vs base
-Revenue
-₹33.3L
-↑ ₹4.6L vs base
-Customers
-2,959
-+508 vs base
+  .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #0e0e0b;
+    padding: 6px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
 
-⚖️
-Balanced Reallocation
-Recommended split from memo: Meta 25%, Google 35%, Influencer 40%.
-ROAS
-3.2×
-↑ 0.4 vs base
-CAC
-₹354
-↓ ₹54 vs base
-Revenue
-₹32.4L
-↑ ₹3.7L vs base
-Customers
-2,825
-+374 vs base
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
 
-📘
-Meta-Heavy (Status Quo)
-Current allocation. Baseline for comparison — highest CAC, lowest ROAS.
-ROAS
-2.9×
-↑ 0 vs base
-CAC
-₹408
-↓ ₹0 vs base
-Revenue
-₹28.7L
-↑ ₹0L vs base
-Customers
-2,451
-+0 vs base
+  h1 em { font-style: italic; color: var(--accent); }
 
-🌟
-Influencer + Retargeting
-Influencer for acquisition, Meta purely for retargeting cart abandoners.
-ROAS
-3.5×
-↑ 0.6 vs base
-CAC
-₹316
-↓ ₹92 vs base
-Revenue
-₹35.1L
-↑ ₹6.4L vs base
-Customers
-3,165
-+714 vs base
-Funnel Fix Simulator
-Recover Revenue by Fixing Funnel Leaks
-Drag the sliders to simulate CRO improvements. See how many customers & ₹ you recover.
+  .header-meta { text-align: right; }
+  .header-meta p {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    line-height: 1.8;
+  }
 
-Live Simulation
-🛒 Reduce Cart Abandonment
-+0%
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
 
-Current rate: 68.2% abandonment · Industry benchmark: 55%
-🔁 Improve Repeat Purchase Rate
-+0%
+  /* KPI STRIP */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
 
-Current rate: 28% repeat · Email & WhatsApp retention flows
-Additional Customers
-+-2
-drag sliders to simulate
-Additional Revenue
-+₹-0.0L
-+-2 customers × ₹1,170 AOV
-Effective CAC
-₹418
-no change yet
-Total Monthly Rev
-₹28.0L
-+₹-0.0L vs ₹28L baseline
-💡 → +-2 customers/month and ₹-0.0L extra revenue without touching your ad budget.
-Budget Simulator
-Reallocate ₹10L — See the Impact
-Drag the sliders to simulate budget reallocation. Metrics update live.
-Meta Ads
-50%
+  .kpi-card {
+    background: var(--card);
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+  .kpi-card:hover { background: #1e1e18; }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent-color, var(--accent));
+  }
 
-ROAS: 2.1×
-CAC: ₹520
-Google Ads
-20%
+  .kpi-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
 
-ROAS: 3.4×
-CAC: ₹320
-Influencer
-30%
+  .kpi-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
 
-ROAS: 3.8×
-CAC: ₹280
-Total Budget
-₹10,00,000
-Fixed monthly
-Simulated ROAS
-2.9×
-Weighted average
-Simulated CAC
-₹408
-Weighted average
-Est. Revenue
-₹28.7L
-At current ROAS
-Creative Brief Recommendations
-Meta Ads
-Retargeting · Mid & Bottom Funnel
-Ingredient Carousel + Cart Recovery Video
-Objective
-Re-engage warm audiences who visited product pages or abandoned cart
-Hook / Creative Direction
-"You left something behind." + product thumbnail. 3–5 slides: ingredient list, certifications, UGC review, offer.
-CTA
-"Complete your order" with urgency timer (24h offer)
-Targeting / Audience
-Custom audience: website visitors (30d), cart abandoners (7d), product page viewers (14d). Lookalike excluded.
-Success KPIs
-Target CTR > 3.5% · Frequency cap 4/week · ATC-to-purchase window 7d
-Carousel
-Retargeting
-Dynamic Ads
-Cart Recovery
-Ingredient Story
-Google Ads
-Search · Bottom Funnel Acquisition
-Responsive Search Ads + Shopping Listings
-Objective
-Capture high-intent buyers actively searching for clean-label snacks
-Hook / Creative Direction
-Headline A: "No Hidden Ingredients. Just Whole Truth." · Headline B: "India's Cleanest Protein Bar" · Headline C: "Free Delivery · Try a Starter Pack"
-CTA
-Shop Now / Try Today — direct to product collection page, not homepage
-Targeting / Audience
-Keywords: "high protein bar India", "clean label snacks", "no artificial sweeteners bar", "whole truth foods". Negative: "recipe", "DIY", "cheap".
-Success KPIs
-Target CPC < ₹18 · Quality Score > 7 · ROAS target 4× · Search IS > 60%
-RSA
-Shopping
-Intent Keywords
-PMAX
-Negative Match
-Influencer
-Awareness + Trust · Top & Mid Funnel
-Micro-Influencer Honest Review + Ingredient Deep-Dive Reel
-Objective
-Build brand credibility through authentic, education-first content
-Hook / Creative Direction
-"I read the label so you don't have to." → creator reads TWT label vs competitor live. Ends with personal verdict.
-CTA
-Link in bio / swipe up → ₹100 off first order with creator code. Drives trackable attribution.
-Targeting / Audience
-Fitness, nutrition, and lifestyle creators · 50K–300K followers · Engagement rate > 4% · Tier: micro over mega for trust signal.
-Success KPIs
-Reach > 500K/month · Tracked sales via code · Cost per tracked sale < ₹350 · Saves/shares > 2% of views
-Reels
-Honest Review
-Creator Code
-Micro-Influencer
-UGC Repurpose
-Strategy Recommendation
-Memo: Where to Reallocate Budget
-& Why
-To · Performance Marketing Lead
-From · Growth Analyst
-Date · June 2026
-Re · TWT Media Mix Optimisation
-The Problem
-50% of TWT's budget currently flows to Meta Ads — the lowest-ROAS channel at 2.1×. Google (3.4×) and Influencer (3.8×) are consistently outperforming but remain underfunded. The blended CAC of ₹418 is dragged up primarily by Meta's ₹520 CAC, which is 85% higher than Influencer's ₹280.
+  .kpi-sub { font-size: 11px; color: var(--muted); }
 
+  .kpi-delta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    margin-top: 8px;
+  }
+  .kpi-delta.up { color: var(--accent); }
+  .kpi-delta.down { color: var(--accent3); }
 
-Funnel Gaps Identified
-Cart abandonment is the biggest leak — 68% drop from Add-to-Cart to Purchase. Industry benchmark for D2C food is ~55%. TWT has a 13pt gap worth fixing before scaling spend.
-Awareness-to-Click is weak on Meta — 2.1% CTR suggests creatives aren't landing. TWT's transparency-first messaging needs more education-format content (carousels, ingredient explainers) vs. direct conversion ads.
-Repeat purchase rate at 28% is below potential — email/WhatsApp retention flows are likely underutilised given a health-conscious, loyal customer base.
-Recommended Reallocation
-↑ Google: 20% → 35%
-TWT's customers are search-intent buyers — "high protein bar India", "clean label snacks". Google Search captures bottom-of-funnel demand at a 3.4× ROAS. Every ₹1 moved from Meta to Google here saves ~₹200 in CAC.
-↑ Influencer: 30% → 40%
-TWT's best-fit channel — nutritionist, fitness, and honest-review creators align perfectly with the brand's "nothing to hide" positioning. Highest ROAS (3.8×), lowest CAC (₹280). Micro-influencers (50K–300K) over mega.
-↓ Meta: 50% → 25%
-Don't cut Meta entirely — retargeting and lookalike audiences still work. But shift Meta's role from acquisition to retargeting cart abandoners and warming influencer audiences. Expected CAC drop of ₹60–80 blended.
-The Whole Truth Foods · Funnel & Media Mix Audit · Jun 2026 · Simulated Model
+  /* CHARTS */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
 
-MBA Marketing Portfolio · github.com/kav0309
+  .chart-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+  }
+
+  .chart-card.full { grid-column: 1 / -1; }
+
+  .chart-title {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .chart-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  canvas { width: 100% !important; }
+
+  /* FUNNEL */
+  .funnel-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .funnel-stage {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+  }
+
+  .funnel-bar-wrap {
+    flex: 1;
+    height: 44px;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .funnel-bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0e0e0b;
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1), filter 0.2s;
+    position: relative;
+    white-space: nowrap;
+  }
+  .funnel-bar-wrap:hover .funnel-bar { filter: brightness(1.15); }
+
+  .funnel-label {
+    width: 130px;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .funnel-stats {
+    width: 130px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .funnel-stats .num { font-size: 15px; font-weight: 700; font-family: 'DM Serif Display', serif; }
+  .funnel-stats .drop {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--accent3);
+  }
+  .funnel-stats .drop.good { color: var(--accent); }
+
+  .funnel-connector {
+    text-align: right;
+    padding-right: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--border);
+    margin: -2px 0;
+  }
+
+  /* ── SCENARIO CARDS ─────────────────────────── */
+  .scenario-section {
+    margin-bottom: 48px;
+  }
+
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .scenario-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scenario-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--sc-color, var(--accent));
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+    transform-origin: left;
+  }
+
+  .scenario-btn:hover::before,
+  .scenario-btn.active::before {
+    transform: scaleX(1);
+  }
+
+  .scenario-btn:hover,
+  .scenario-btn.active {
+    background: #1e1e18;
+    border-color: var(--sc-color, var(--accent));
+  }
+
+  .scenario-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .scenario-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .scenario-desc {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .scenario-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .sc-result {
+    background: var(--surface);
+    padding: 8px 10px;
+    border-radius: 2px;
+  }
+
+  .sc-result .sc-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+
+  .sc-result .sc-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    line-height: 1;
+  }
+
+  .sc-result .sc-delta {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    margin-top: 2px;
+  }
+  .sc-result .sc-delta.up { color: var(--accent); }
+  .sc-result .sc-delta.down { color: var(--accent3); }
+
+  /* ── FUNNEL FIX SIMULATOR ───────────────────── */
+  .funnel-fix {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px;
+    margin-bottom: 48px;
+  }
+
+  .funnel-fix-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .funnel-fix-header h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .funnel-fix-header p {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-top: 4px;
+  }
+
+  .fix-pill {
+    background: var(--accent);
+    color: #0e0e0b;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 4px 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .fix-sliders {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 28px;
+  }
+
+  .fix-slider-group { }
+
+  .fix-slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .fix-slider-name {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .fix-slider-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent2);
+    font-weight: 500;
+  }
+
+  .fix-slider-sub {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-top: 6px;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 2px solid var(--bg);
+  }
+
+  .fix-results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .fix-result-card {
+    background: var(--card);
+    padding: 18px 16px;
+  }
+
+  .fix-result-card .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .fix-result-card .val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    margin-bottom: 2px;
+  }
+
+  .fix-result-card .delta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+  }
+  .fix-result-card .delta.up { color: var(--accent); }
+  .fix-result-card .delta.dn { color: var(--accent3); }
+
+  .fix-insight {
+    background: var(--surface);
+    border-left: 3px solid var(--accent2);
+    padding: 14px 18px;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    line-height: 1.6;
+  }
+
+  .fix-insight span { color: var(--text); font-weight: 600; }
+
+  /* ── BUDGET SIMULATOR ───────────────────────── */
+  .budget-controls {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px;
+    margin-bottom: 48px;
+  }
+
+  .budget-title {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .budget-sub {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 28px;
+  }
+
+  .sliders-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 28px;
+  }
+
+  .slider-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .slider-name {
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .channel-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .slider-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .budget-results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .budget-result-card {
+    background: var(--card);
+    padding: 18px 16px;
+  }
+
+  .budget-result-card .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .budget-result-card .val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  .budget-result-card .sub { font-size: 10px; color: var(--muted); }
+
+  /* ── CREATIVE BRIEFS ────────────────────────── */
+  .briefs-section { margin-bottom: 48px; }
+
+  .briefs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .brief-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brief-header {
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .brief-channel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    border: 1px solid;
+    border-radius: 2px;
+  }
+
+  .brief-stage {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 6px;
+  }
+
+  .brief-format {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .brief-body {
+    padding: 18px 20px;
+  }
+
+  .brief-rows { display: flex; flex-direction: column; gap: 12px; }
+
+  .brief-row-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .brief-row-value {
+    font-size: 12px;
+    color: #c8c5bc;
+    line-height: 1.55;
+  }
+
+  .brief-row-value strong { color: var(--text); }
+
+  .brief-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .brief-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    padding: 3px 8px;
+    background: var(--surface);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── STRATEGY MEMO ──────────────────────────── */
+  .memo {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 36px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .memo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+
+  .memo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .memo h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .memo-stamp {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  .memo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .memo-section h3 {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .memo-section p, .memo-section li {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: #c8c5bc;
+  }
+
+  .memo-section ul { list-style: none; }
+  .memo-section ul li { padding-left: 18px; position: relative; margin-bottom: 8px; }
+  .memo-section ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  .reco-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 18px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--accent-color, var(--accent));
+  }
+
+  .reco-card .reco-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .reco-card .reco-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+    margin-top: 24px;
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-inner p {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    .charts-grid { grid-template-columns: 1fr; }
+    .sliders-grid { grid-template-columns: 1fr; }
+    .budget-results { grid-template-columns: 1fr 1fr; }
+    .fix-results { grid-template-columns: 1fr 1fr; }
+    .memo-grid { grid-template-columns: 1fr; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .header-meta { text-align: left; }
+    .briefs-grid { grid-template-columns: 1fr; }
+    .scenario-grid { grid-template-columns: 1fr 1fr; }
+    .fix-sliders { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div>
+        <div class="brand-badge">📊 Performance Audit · Jun 2026</div>
+        <h1>The Whole Truth Foods<br><em>Funnel & Media Mix Audit</em></h1>
+      </div>
+      <div class="header-meta">
+        <p>Budget Period · FY 2026</p>
+        <p>Monthly Budget · ₹10,00,000</p>
+        <p>Channels · Meta · Google · Influencer</p>
+        <p>Framework · Simulated D2C Model</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- KPI STRIP -->
+  <div class="section-label">Key Performance Indicators</div>
+  <div class="kpi-grid">
+    <div class="kpi-card" style="--accent-color: var(--accent)">
+      <div class="kpi-label">Monthly Budget</div>
+      <div class="kpi-value" style="color:var(--accent)">₹10L</div>
+      <div class="kpi-sub">Across 3 channels</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:#4267B2">
+      <div class="kpi-label">Blended CAC</div>
+      <div class="kpi-value" style="color:#4cc9f0" id="kpi-cac">₹418</div>
+      <div class="kpi-sub">Cost to acquire 1 customer</div>
+      <div class="kpi-delta down" id="kpi-cac-delta">↑ Meta driving up avg</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:var(--accent2)">
+      <div class="kpi-label">Blended ROAS</div>
+      <div class="kpi-value" style="color:var(--accent2)" id="kpi-roas">2.8×</div>
+      <div class="kpi-sub">Revenue per ₹1 spent</div>
+      <div class="kpi-delta up">↑ Influencer anchoring</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:var(--accent3)">
+      <div class="kpi-label">Customers / Month</div>
+      <div class="kpi-value" style="color:var(--accent3)" id="kpi-customers">2,392</div>
+      <div class="kpi-sub">New paid acquisitions</div>
+      <div class="kpi-delta up">↑ Funnel opt. potential</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:#9b59b6">
+      <div class="kpi-label">Funnel Conversion</div>
+      <div class="kpi-value" style="color:#9b59b6">1.8%</div>
+      <div class="kpi-sub">Impression → Purchase</div>
+      <div class="kpi-delta down">↓ Cart abandon = gap</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:var(--accent)">
+      <div class="kpi-label">Est. Monthly Revenue</div>
+      <div class="kpi-value" style="color:var(--accent)" id="kpi-rev">₹28L</div>
+      <div class="kpi-sub">At avg order ₹1,170</div>
+      <div class="kpi-delta up">↑ Healthy for D2C</div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section-label">Channel Performance</div>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">ROAS by Channel</div>
+      <div class="chart-sub">Revenue returned per ₹1 spent · Current allocation</div>
+      <canvas id="roasChart" height="220"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">CAC by Channel</div>
+      <div class="chart-sub">Cost to acquire one paying customer (₹)</div>
+      <canvas id="cacChart" height="220"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Budget Allocation</div>
+      <div class="chart-sub">Current split across channels</div>
+      <canvas id="budgetChart" height="220"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">ROAS Trend — Last 6 Months</div>
+      <div class="chart-sub">Channel ROAS over time · simulated trajectory</div>
+      <canvas id="trendChart" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- FUNNEL -->
+  <div class="section-label">Conversion Funnel</div>
+  <div class="chart-card full" style="margin-bottom:48px">
+    <div class="chart-title">Full Funnel — Impression to Repeat Purchase</div>
+    <div class="chart-sub">Monthly volume estimates · drop-off % at each stage · Gap analysis</div>
+    <div class="funnel-wrap" id="funnelWrap"></div>
+  </div>
+
+  <!-- ── WHAT-IF SCENARIO CARDS ───────────────────────────────────────────── -->
+  <div class="section-label">What-If Scenarios</div>
+  <div class="scenario-section">
+    <div class="scenario-grid" id="scenarioGrid"></div>
+  </div>
+
+  <!-- ── FUNNEL FIX SIMULATOR ─────────────────────────────────────────────── -->
+  <div class="section-label">Funnel Fix Simulator</div>
+  <div class="funnel-fix">
+    <div class="funnel-fix-header">
+      <div>
+        <h3>Recover Revenue by Fixing Funnel Leaks</h3>
+        <p>Drag the sliders to simulate CRO improvements. See how many customers & ₹ you recover.</p>
+      </div>
+      <div class="fix-pill">Live Simulation</div>
+    </div>
+
+    <div class="fix-sliders">
+      <div class="fix-slider-group">
+        <div class="fix-slider-label">
+          <span class="fix-slider-name">🛒 Reduce Cart Abandonment</span>
+          <span class="fix-slider-val" id="cartImpVal">0%</span>
+        </div>
+        <input type="range" id="cartSlider" min="0" max="30" value="0" step="1">
+        <div class="fix-slider-sub">Current rate: 68.2% abandonment · Industry benchmark: 55%</div>
+      </div>
+      <div class="fix-slider-group">
+        <div class="fix-slider-label">
+          <span class="fix-slider-name">🔁 Improve Repeat Purchase Rate</span>
+          <span class="fix-slider-val" id="repeatImpVal">0%</span>
+        </div>
+        <input type="range" id="repeatSlider" min="0" max="30" value="0" step="1">
+        <div class="fix-slider-sub">Current rate: 28% repeat · Email & WhatsApp retention flows</div>
+      </div>
+    </div>
+
+    <div class="fix-results">
+      <div class="fix-result-card">
+        <div class="label">Additional Customers</div>
+        <div class="val" style="color:var(--accent)" id="fix-customers">+0</div>
+        <div class="delta up" id="fix-customers-delta">drag sliders to simulate</div>
+      </div>
+      <div class="fix-result-card">
+        <div class="label">Additional Revenue</div>
+        <div class="val" style="color:var(--accent2)" id="fix-revenue">+₹0</div>
+        <div class="delta up" id="fix-revenue-delta">at ₹1,170 avg order</div>
+      </div>
+      <div class="fix-result-card">
+        <div class="label">Effective CAC</div>
+        <div class="val" style="color:#4cc9f0" id="fix-cac">₹418</div>
+        <div class="delta" id="fix-cac-delta" style="color:var(--muted)">no change yet</div>
+      </div>
+      <div class="fix-result-card">
+        <div class="label">Total Monthly Rev</div>
+        <div class="val" style="color:var(--accent3)" id="fix-total-rev">₹28.0L</div>
+        <div class="delta up" id="fix-total-delta">baseline</div>
+      </div>
+    </div>
+
+    <div class="fix-insight" id="fixInsight">
+      💡 Move the sliders to see how small funnel improvements compound into significant revenue recovery — no extra ad spend required.
+    </div>
+  </div>
+
+  <!-- BUDGET SIMULATOR -->
+  <div class="section-label">Budget Simulator</div>
+  <div class="budget-controls">
+    <div class="budget-title">Reallocate ₹10L — See the Impact</div>
+    <div class="budget-sub">Drag the sliders to simulate budget reallocation. Metrics update live.</div>
+
+    <div class="sliders-grid">
+      <div class="slider-group">
+        <label>
+          <span class="slider-name"><span class="channel-dot" style="background:#4267B2"></span>Meta Ads</span>
+          <span class="slider-pct" id="metaPct">50%</span>
+        </label>
+        <input type="range" id="metaSlider" min="10" max="80" value="50" step="5">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:6px">
+          <span>ROAS: 2.1×</span><span>CAC: ₹520</span>
+        </div>
+      </div>
+      <div class="slider-group">
+        <label>
+          <span class="slider-name"><span class="channel-dot" style="background:#EA4335"></span>Google Ads</span>
+          <span class="slider-pct" id="googlePct">20%</span>
+        </label>
+        <input type="range" id="googleSlider" min="10" max="60" value="20" step="5">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:6px">
+          <span>ROAS: 3.4×</span><span>CAC: ₹320</span>
+        </div>
+      </div>
+      <div class="slider-group">
+        <label>
+          <span class="slider-name"><span class="channel-dot" style="background:var(--accent)"></span>Influencer</span>
+          <span class="slider-pct" id="influPct">30%</span>
+        </label>
+        <input type="range" id="influSlider" min="10" max="60" value="30" step="5">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:6px">
+          <span>ROAS: 3.8×</span><span>CAC: ₹280</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="budget-results">
+      <div class="budget-result-card">
+        <div class="label">Total Budget</div>
+        <div class="val" style="color:var(--accent)">₹10,00,000</div>
+        <div class="sub">Fixed monthly</div>
+      </div>
+      <div class="budget-result-card">
+        <div class="label">Simulated ROAS</div>
+        <div class="val" style="color:var(--accent2)" id="sim-roas">2.8×</div>
+        <div class="sub">Weighted average</div>
+      </div>
+      <div class="budget-result-card">
+        <div class="label">Simulated CAC</div>
+        <div class="val" style="color:#4cc9f0" id="sim-cac">₹418</div>
+        <div class="sub">Weighted average</div>
+      </div>
+      <div class="budget-result-card">
+        <div class="label">Est. Revenue</div>
+        <div class="val" style="color:var(--accent3)" id="sim-rev">₹28.0L</div>
+        <div class="sub">At current ROAS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CREATIVE BRIEFS ───────────────────────────────────────────────────── -->
+  <div class="section-label">Creative Brief Recommendations</div>
+  <div class="briefs-section">
+    <div class="briefs-grid" id="briefsGrid"></div>
+  </div>
+
+  <!-- STRATEGY MEMO -->
+  <div class="section-label">Strategy Recommendation</div>
+  <div class="memo">
+    <div class="memo-header">
+      <div>
+        <h2>Memo: Where to Reallocate Budget<br>& Why</h2>
+      </div>
+      <div class="memo-stamp">
+        To · Performance Marketing Lead<br>
+        From · Growth Analyst<br>
+        Date · June 2026<br>
+        Re · TWT Media Mix Optimisation
+      </div>
+    </div>
+
+    <div class="memo-grid">
+      <div>
+        <div class="memo-section">
+          <h3>The Problem</h3>
+          <p>50% of TWT's budget currently flows to Meta Ads — the lowest-ROAS channel at 2.1×. Google (3.4×) and Influencer (3.8×) are consistently outperforming but remain underfunded. The blended CAC of ₹418 is dragged up primarily by Meta's ₹520 CAC, which is 85% higher than Influencer's ₹280.</p>
+        </div>
+        <br>
+        <div class="memo-section">
+          <h3>Funnel Gaps Identified</h3>
+          <ul>
+            <li><strong>Cart abandonment is the biggest leak</strong> — 68% drop from Add-to-Cart to Purchase. Industry benchmark for D2C food is ~55%. TWT has a 13pt gap worth fixing before scaling spend.</li>
+            <li><strong>Awareness-to-Click is weak on Meta</strong> — 2.1% CTR suggests creatives aren't landing. TWT's transparency-first messaging needs more education-format content (carousels, ingredient explainers) vs. direct conversion ads.</li>
+            <li><strong>Repeat purchase rate at 28% is below potential</strong> — email/WhatsApp retention flows are likely underutilised given a health-conscious, loyal customer base.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="memo-section">
+          <h3>Recommended Reallocation</h3>
+
+          <div class="reco-card" style="--accent-color:#EA4335">
+            <div class="reco-title">↑ Google: 20% → 35%</div>
+            <div class="reco-body">TWT's customers are search-intent buyers — "high protein bar India", "clean label snacks". Google Search captures bottom-of-funnel demand at a 3.4× ROAS. Every ₹1 moved from Meta to Google here saves ~₹200 in CAC.</div>
+          </div>
+
+          <div class="reco-card" style="--accent-color:var(--accent)">
+            <div class="reco-title">↑ Influencer: 30% → 40%</div>
+            <div class="reco-body">TWT's best-fit channel — nutritionist, fitness, and honest-review creators align perfectly with the brand's "nothing to hide" positioning. Highest ROAS (3.8×), lowest CAC (₹280). Micro-influencers (50K–300K) over mega.</div>
+          </div>
+
+          <div class="reco-card" style="--accent-color:#4267B2">
+            <div class="reco-title">↓ Meta: 50% → 25%</div>
+            <div class="reco-body">Don't cut Meta entirely — retargeting and lookalike audiences still work. But shift Meta's role from acquisition to retargeting cart abandoners and warming influencer audiences. Expected CAC drop of ₹60–80 blended.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p>The Whole Truth Foods · Funnel & Media Mix Audit · Jun 2026 · Simulated Model</p>
+      <p>MBA Marketing Portfolio · github.com/kav0309</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const CHANNEL_DATA = {
+  meta:       { roas: 2.1, cac: 520,  color: '#4267B2', label: 'Meta Ads' },
+  google:     { roas: 3.4, cac: 320,  color: '#EA4335', label: 'Google Ads' },
+  influencer: { roas: 3.8, cac: 280,  color: '#c8f060', label: 'Influencer' },
+};
+
+const FUNNEL_STAGES = [
+  { stage: 'Impressions',      volume: 1800000, color: '#4267B2', pct: 100 },
+  { stage: 'Reach / Clicks',   volume: 54000,   color: '#5b7fd4', pct: 3.0 },
+  { stage: 'Website Visits',   volume: 38000,   color: '#7b9fd4', pct: 70.4 },
+  { stage: 'Product Page View',volume: 22000,   color: '#EA4335', pct: 57.9 },
+  { stage: 'Add to Cart',      volume: 8800,    color: '#f07040', pct: 40.0 },
+  { stage: 'Purchase',         volume: 2800,    color: '#c8f060', pct: 31.8 },
+  { stage: 'Repeat Purchase',  volume: 784,     color: '#90d040', pct: 28.0 },
+];
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+const TREND_DATA = {
+  meta:       [1.8, 1.9, 2.0, 2.1, 2.0, 2.1],
+  google:     [2.8, 3.0, 3.1, 3.2, 3.3, 3.4],
+  influencer: [3.2, 3.4, 3.5, 3.6, 3.7, 3.8],
+};
+
+const BASE_CUSTOMERS = 2392;
+const BASE_REVENUE_L = 28.0;
+const AVG_ORDER = 1170;
+const BASE_CAC = 418;
+const TOTAL_BUDGET = 1000000;
+
+// ── CHART DEFAULTS ────────────────────────────────────────────────────────────
+Chart.defaults.color = '#7a7a68';
+Chart.defaults.font.family = "'DM Mono', monospace";
+Chart.defaults.font.size = 11;
+const gridOpts = { color: '#2a2a24', drawBorder: false };
+
+new Chart(document.getElementById('roasChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Meta Ads', 'Google Ads', 'Influencer'],
+    datasets: [{ data: [2.1, 3.4, 3.8], backgroundColor: ['#4267B2cc','#EA4335cc','#c8f060cc'], borderColor: ['#4267B2','#EA4335','#c8f060'], borderWidth: 1, borderRadius: 2 }]
+  },
+  options: { responsive: true, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.raw}× ROAS` }}}, scales: { x: { grid: gridOpts }, y: { grid: gridOpts, ticks: { callback: v => v+'×' }, min: 0, max: 5 }}}
+});
+
+new Chart(document.getElementById('cacChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Meta Ads', 'Google Ads', 'Influencer'],
+    datasets: [{ data: [520, 320, 280], backgroundColor: ['#4267B2cc','#EA4335cc','#c8f060cc'], borderColor: ['#4267B2','#EA4335','#c8f060'], borderWidth: 1, borderRadius: 2 }]
+  },
+  options: { responsive: true, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ₹${ctx.raw} CAC` }}}, scales: { x: { grid: gridOpts }, y: { grid: gridOpts, ticks: { callback: v => '₹'+v }, min: 0, max: 650 }}}
+});
+
+new Chart(document.getElementById('budgetChart'), {
+  type: 'doughnut',
+  data: { labels: ['Meta Ads (50%)', 'Google Ads (20%)', 'Influencer (30%)'], datasets: [{ data: [50, 20, 30], backgroundColor: ['#4267B2cc','#EA4335cc','#c8f060cc'], borderColor: '#0e0e0b', borderWidth: 3, hoverOffset: 8 }]},
+  options: { responsive: true, cutout: '68%', plugins: { legend: { position: 'bottom', labels: { color: '#7a7a68', padding: 16 }}, tooltip: { callbacks: { label: ctx => ` ₹${(ctx.raw*10000).toLocaleString('en-IN')}` }}}}
+});
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: { labels: MONTHS, datasets: [
+    { label: 'Meta Ads',   data: TREND_DATA.meta,       borderColor: '#4267B2', backgroundColor: '#4267B220', tension: 0.4, fill: true, pointRadius: 3 },
+    { label: 'Google Ads', data: TREND_DATA.google,     borderColor: '#EA4335', backgroundColor: '#EA433520', tension: 0.4, fill: true, pointRadius: 3 },
+    { label: 'Influencer', data: TREND_DATA.influencer, borderColor: '#c8f060', backgroundColor: '#c8f06020', tension: 0.4, fill: true, pointRadius: 3 },
+  ]},
+  options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#7a7a68', padding: 12 }}, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}× ROAS` }}}, scales: { x: { grid: gridOpts }, y: { grid: gridOpts, ticks: { callback: v => v+'×' }, min: 1, max: 5 }}}
+});
+
+// ── FUNNEL ────────────────────────────────────────────────────────────────────
+const funnelWrap = document.getElementById('funnelWrap');
+const maxVol = FUNNEL_STAGES[0].volume;
+
+FUNNEL_STAGES.forEach((s, i) => {
+  const barPct = (s.volume / maxVol * 100).toFixed(1);
+  const drop = i > 0 ? ((1 - s.volume / FUNNEL_STAGES[i-1].volume) * 100).toFixed(0) : null;
+  const row = document.createElement('div');
+  row.className = 'funnel-stage';
+  row.innerHTML = `
+    <div class="funnel-label">${s.stage}</div>
+    <div class="funnel-bar-wrap">
+      <div class="funnel-bar" style="width:${barPct}%;background:${s.color}">${Number(s.volume).toLocaleString('en-IN')}</div>
+    </div>
+    <div class="funnel-stats">
+      <div class="num">${barPct}%</div>
+      ${drop ? `<div class="drop ${drop < 50 ? 'good' : ''}">↓ ${drop}% drop</div>` : '<div class="drop good">Top of funnel</div>'}
+    </div>`;
+  funnelWrap.appendChild(row);
+  if (i < FUNNEL_STAGES.length - 1) {
+    const conn = document.createElement('div');
+    conn.className = 'funnel-connector';
+    conn.textContent = '│';
+    funnelWrap.appendChild(conn);
+  }
+});
+
+// ── WHAT-IF SCENARIOS ─────────────────────────────────────────────────────────
+const SCENARIOS = [
+  {
+    id: 'double-influ',
+    icon: '🚀',
+    name: 'Double Influencer Budget',
+    desc: 'Shift 30% from Meta → Influencer. Best-performing channel gets more fuel.',
+    color: '#c8f060',
+    meta: 20, google: 20, influ: 60,
+  },
+  {
+    id: 'cut-meta',
+    icon: '✂️',
+    name: 'Cut Meta Entirely',
+    desc: 'Zero Meta spend. Redistribute equally to Google & Influencer.',
+    color: '#f06040',
+    meta: 0, google: 50, influ: 50,
+  },
+  {
+    id: 'google-heavy',
+    icon: '🔍',
+    name: 'Google-Heavy Mix',
+    desc: 'Lean into search intent. Strong for bottom-of-funnel conversion.',
+    color: '#EA4335',
+    meta: 15, google: 55, influ: 30,
+  },
+  {
+    id: 'balanced',
+    icon: '⚖️',
+    name: 'Balanced Reallocation',
+    desc: 'Recommended split from memo: Meta 25%, Google 35%, Influencer 40%.',
+    color: '#f0c840',
+    meta: 25, google: 35, influ: 40,
+  },
+  {
+    id: 'meta-heavy',
+    icon: '📘',
+    name: 'Meta-Heavy (Status Quo)',
+    desc: 'Current allocation. Baseline for comparison — highest CAC, lowest ROAS.',
+    color: '#4267B2',
+    meta: 50, google: 20, influ: 30,
+  },
+  {
+    id: 'influ-only',
+    icon: '🌟',
+    name: 'Influencer + Retargeting',
+    desc: 'Influencer for acquisition, Meta purely for retargeting cart abandoners.',
+    color: '#9b59b6',
+    meta: 10, google: 30, influ: 60,
+  },
+];
+
+const CHANNEL_METRICS = {
+  meta:   { roas: 2.1, cac: 520 },
+  google: { roas: 3.4, cac: 320 },
+  influ:  { roas: 3.8, cac: 280 },
+};
+
+function calcScenario(meta, google, influ) {
+  const t = meta + google + influ || 100;
+  const mW = meta/t, gW = google/t, iW = influ/t;
+  const roas = (CHANNEL_METRICS.meta.roas*mW + CHANNEL_METRICS.google.roas*gW + CHANNEL_METRICS.influ.roas*iW);
+  const cac  = mW*CHANNEL_METRICS.meta.cac + gW*CHANNEL_METRICS.google.cac + iW*CHANNEL_METRICS.influ.cac;
+  const rev  = TOTAL_BUDGET * roas / 100000;
+  const customers = Math.round(TOTAL_BUDGET / cac);
+  return { roas, cac, rev, customers };
+}
+
+const BASE = calcScenario(50, 20, 30);
+
+const scenarioGrid = document.getElementById('scenarioGrid');
+SCENARIOS.forEach(sc => {
+  const res = calcScenario(sc.meta, sc.google, sc.influ);
+  const roasDelta = (res.roas - BASE.roas).toFixed(1);
+  const cacDelta  = Math.round(res.cac - BASE.cac);
+  const revDelta  = (res.rev - BASE.rev).toFixed(1);
+  const custDelta = res.customers - BASE.customers;
+
+  const card = document.createElement('button');
+  card.className = 'scenario-btn';
+  card.style.setProperty('--sc-color', sc.color);
+  card.setAttribute('data-id', sc.id);
+  card.innerHTML = `
+    <div class="scenario-icon">${sc.icon}</div>
+    <div class="scenario-name" style="color:${sc.color}">${sc.name}</div>
+    <div class="scenario-desc">${sc.desc}</div>
+    <div class="scenario-results">
+      <div class="sc-result">
+        <div class="sc-lbl">ROAS</div>
+        <div class="sc-val" style="color:var(--accent2)">${res.roas.toFixed(1)}×</div>
+        <div class="sc-delta ${roasDelta >= 0 ? 'up' : 'down'}">${roasDelta >= 0 ? '↑' : '↓'} ${Math.abs(roasDelta)} vs base</div>
+      </div>
+      <div class="sc-result">
+        <div class="sc-lbl">CAC</div>
+        <div class="sc-val" style="color:#4cc9f0">₹${Math.round(res.cac)}</div>
+        <div class="sc-delta ${cacDelta <= 0 ? 'up' : 'down'}">${cacDelta <= 0 ? '↓' : '↑'} ₹${Math.abs(cacDelta)} vs base</div>
+      </div>
+      <div class="sc-result">
+        <div class="sc-lbl">Revenue</div>
+        <div class="sc-val" style="color:var(--accent3)">₹${res.rev.toFixed(1)}L</div>
+        <div class="sc-delta ${revDelta >= 0 ? 'up' : 'down'}">${revDelta >= 0 ? '↑' : '↓'} ₹${Math.abs(revDelta)}L vs base</div>
+      </div>
+      <div class="sc-result">
+        <div class="sc-lbl">Customers</div>
+        <div class="sc-val" style="color:var(--accent)">${res.customers.toLocaleString('en-IN')}</div>
+        <div class="sc-delta ${custDelta >= 0 ? 'up' : 'down'}">${custDelta >= 0 ? '+' : ''}${custDelta} vs base</div>
+      </div>
+    </div>`;
+
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+    card.classList.add('active');
+    // Apply to budget sliders
+    document.getElementById('metaSlider').value   = sc.meta || 10;
+    document.getElementById('googleSlider').value = sc.google;
+    document.getElementById('influSlider').value  = sc.influ;
+    updateSimulator();
+  });
+
+  scenarioGrid.appendChild(card);
+});
+
+// ── FUNNEL FIX SIMULATOR ──────────────────────────────────────────────────────
+const BASE_CART_CONV = 0.318;   // 31.8% of ATC → purchase
+const BASE_ATC       = 8800;
+const BASE_PURCHASES = 2800;
+const BASE_REPEAT    = 784;
+const BASE_REPEAT_RATE = 0.28;
+
+function updateFunnelFix() {
+  const cartImp   = parseFloat(document.getElementById('cartSlider').value);
+  const repeatImp = parseFloat(document.getElementById('repeatSlider').value);
+
+  document.getElementById('cartImpVal').textContent   = '+' + cartImp + '%';
+  document.getElementById('repeatImpVal').textContent = '+' + repeatImp + '%';
+
+  // New conversion rate at checkout
+  const newCartConv    = Math.min(BASE_CART_CONV + cartImp/100, 0.95);
+  const newPurchases   = Math.round(BASE_ATC * newCartConv);
+  const addlFromCart   = newPurchases - BASE_PURCHASES;
+
+  // New repeat rate
+  const newRepeatRate  = Math.min(BASE_REPEAT_RATE + repeatImp/100, 0.85);
+  const newRepeat      = Math.round(newPurchases * newRepeatRate);
+  const addlFromRepeat = newRepeat - BASE_REPEAT;
+
+  const totalAddlCustomers = addlFromCart + Math.max(0, addlFromRepeat);
+  const addlRevenue        = totalAddlCustomers * AVG_ORDER;
+  const addlRevL           = (addlRevenue / 100000).toFixed(1);
+  const totalRevL          = (BASE_REVENUE_L + parseFloat(addlRevL)).toFixed(1);
+
+  // Effective CAC improves because revenue up without extra spend
+  const newEffectiveCAC = totalAddlCustomers > 0
+    ? Math.round(TOTAL_BUDGET / (BASE_CUSTOMERS + totalAddlCustomers))
+    : BASE_CAC;
+  const cacChange = newEffectiveCAC - BASE_CAC;
+
+  document.getElementById('fix-customers').textContent  = '+' + totalAddlCustomers.toLocaleString('en-IN');
+  document.getElementById('fix-revenue').textContent    = '+₹' + addlRevL + 'L';
+  document.getElementById('fix-cac').textContent        = '₹' + newEffectiveCAC;
+  document.getElementById('fix-total-rev').textContent  = '₹' + totalRevL + 'L';
+
+  const custDeltaEl = document.getElementById('fix-customers-delta');
+  const cacDeltaEl  = document.getElementById('fix-cac-delta');
+  const revDeltaEl  = document.getElementById('fix-revenue-delta');
+  const totRevEl    = document.getElementById('fix-total-delta');
+
+  custDeltaEl.textContent = totalAddlCustomers > 0 ? `from cart & repeat improvements` : 'drag sliders to simulate';
+  custDeltaEl.className   = 'delta up';
+
+  cacDeltaEl.textContent  = cacChange < 0 ? `↓ ₹${Math.abs(cacChange)} lower effective CAC` : 'no change yet';
+  cacDeltaEl.className    = cacChange < 0 ? 'delta up' : 'delta';
+
+  revDeltaEl.textContent  = '+' + totalAddlCustomers + ' customers × ₹1,170 AOV';
+  totRevEl.textContent    = `+₹${addlRevL}L vs ₹28L baseline`;
+  totRevEl.className      = 'delta up';
+
+  // Insight text
+  const insightEl = document.getElementById('fixInsight');
+  if (totalAddlCustomers === 0) {
+    insightEl.innerHTML = '💡 Move the sliders to see how small funnel improvements compound into significant revenue recovery — no extra ad spend required.';
+  } else {
+    const cartLine   = cartImp > 0   ? `<span>cart abandonment fix (+${cartImp}%)</span> recovers ~${addlFromCart} customers` : '';
+    const repeatLine = repeatImp > 0 ? `<span>repeat rate improvement (+${repeatImp}%)</span> adds ~${Math.max(0, addlFromRepeat)} customers` : '';
+    const lines      = [cartLine, repeatLine].filter(Boolean).join(' · ');
+    insightEl.innerHTML = `💡 ${lines} → <span>+${totalAddlCustomers} customers/month</span> and <span>₹${addlRevL}L extra revenue</span> without touching your ad budget.`;
+  }
+}
+
+document.getElementById('cartSlider').addEventListener('input', updateFunnelFix);
+document.getElementById('repeatSlider').addEventListener('input', updateFunnelFix);
+updateFunnelFix();
+
+// ── BUDGET SIMULATOR ──────────────────────────────────────────────────────────
+function updateSimulator() {
+  let meta   = parseInt(document.getElementById('metaSlider').value);
+  let google = parseInt(document.getElementById('googleSlider').value);
+  let influ  = parseInt(document.getElementById('influSlider').value);
+  const total = meta + google + influ;
+  meta   = Math.round(meta   / total * 100);
+  google = Math.round(google / total * 100);
+  influ  = 100 - meta - google;
+
+  document.getElementById('metaPct').textContent   = meta + '%';
+  document.getElementById('googlePct').textContent = google + '%';
+  document.getElementById('influPct').textContent  = influ + '%';
+
+  const mW = meta/100, gW = google/100, iW = influ/100;
+  const blendedROAS = (CHANNEL_METRICS.meta.roas*mW + CHANNEL_METRICS.google.roas*gW + CHANNEL_METRICS.influ.roas*iW);
+  const blendedCAC  = (CHANNEL_METRICS.meta.cac*mW  + CHANNEL_METRICS.google.cac*gW  + CHANNEL_METRICS.influ.cac*iW);
+  const estRev      = TOTAL_BUDGET * blendedROAS / 100000;
+
+  document.getElementById('sim-roas').textContent = blendedROAS.toFixed(1) + '×';
+  document.getElementById('sim-cac').textContent  = '₹' + Math.round(blendedCAC);
+  document.getElementById('sim-rev').textContent  = '₹' + estRev.toFixed(1) + 'L';
+  document.getElementById('kpi-roas').textContent = blendedROAS.toFixed(1) + '×';
+  document.getElementById('kpi-cac').textContent  = '₹' + Math.round(blendedCAC);
+  document.getElementById('kpi-rev').textContent  = '₹' + estRev.toFixed(1) + 'L';
+  document.getElementById('kpi-customers').textContent = Math.round(TOTAL_BUDGET / blendedCAC).toLocaleString('en-IN');
+}
+
+document.getElementById('metaSlider').addEventListener('input', updateSimulator);
+document.getElementById('googleSlider').addEventListener('input', updateSimulator);
+document.getElementById('influSlider').addEventListener('input', updateSimulator);
+updateSimulator();
+
+// ── CREATIVE BRIEFS ───────────────────────────────────────────────────────────
+const BRIEFS = [
+  {
+    channel: 'Meta Ads',
+    channelColor: '#4267B2',
+    stage: 'Retargeting · Mid & Bottom Funnel',
+    format: 'Ingredient Carousel + Cart Recovery Video',
+    objective: 'Re-engage warm audiences who visited product pages or abandoned cart',
+    hook: '"You left something behind." + product thumbnail. 3–5 slides: ingredient list, certifications, UGC review, offer.',
+    cta: '"Complete your order" with urgency timer (24h offer)',
+    audience: 'Custom audience: website visitors (30d), cart abandoners (7d), product page viewers (14d). Lookalike excluded.',
+    kpi: 'Target CTR > 3.5% · Frequency cap 4/week · ATC-to-purchase window 7d',
+    tags: ['Carousel', 'Retargeting', 'Dynamic Ads', 'Cart Recovery', 'Ingredient Story'],
+  },
+  {
+    channel: 'Google Ads',
+    channelColor: '#EA4335',
+    stage: 'Search · Bottom Funnel Acquisition',
+    format: 'Responsive Search Ads + Shopping Listings',
+    objective: 'Capture high-intent buyers actively searching for clean-label snacks',
+    hook: 'Headline A: "No Hidden Ingredients. Just Whole Truth." · Headline B: "India\'s Cleanest Protein Bar" · Headline C: "Free Delivery · Try a Starter Pack"',
+    cta: 'Shop Now / Try Today — direct to product collection page, not homepage',
+    audience: 'Keywords: "high protein bar India", "clean label snacks", "no artificial sweeteners bar", "whole truth foods". Negative: "recipe", "DIY", "cheap".',
+    kpi: 'Target CPC < ₹18 · Quality Score > 7 · ROAS target 4× · Search IS > 60%',
+    tags: ['RSA', 'Shopping', 'Intent Keywords', 'PMAX', 'Negative Match'],
+  },
+  {
+    channel: 'Influencer',
+    channelColor: '#c8f060',
+    stage: 'Awareness + Trust · Top & Mid Funnel',
+    format: 'Micro-Influencer Honest Review + Ingredient Deep-Dive Reel',
+    objective: 'Build brand credibility through authentic, education-first content',
+    hook: '"I read the label so you don\'t have to." → creator reads TWT label vs competitor live. Ends with personal verdict.',
+    cta: 'Link in bio / swipe up → ₹100 off first order with creator code. Drives trackable attribution.',
+    audience: 'Fitness, nutrition, and lifestyle creators · 50K–300K followers · Engagement rate > 4% · Tier: micro over mega for trust signal.',
+    kpi: 'Reach > 500K/month · Tracked sales via code · Cost per tracked sale < ₹350 · Saves/shares > 2% of views',
+    tags: ['Reels', 'Honest Review', 'Creator Code', 'Micro-Influencer', 'UGC Repurpose'],
+  },
+];
+
+const briefsGrid = document.getElementById('briefsGrid');
+BRIEFS.forEach(b => {
+  const card = document.createElement('div');
+  card.className = 'brief-card';
+  card.innerHTML = `
+    <div class="brief-header">
+      <div class="brief-channel-tag" style="color:${b.channelColor};border-color:${b.channelColor}30;background:${b.channelColor}12">
+        <span style="width:7px;height:7px;border-radius:50%;background:${b.channelColor};display:inline-block"></span>
+        ${b.channel}
+      </div>
+      <div class="brief-stage">${b.stage}</div>
+      <div class="brief-format">${b.format}</div>
+    </div>
+    <div class="brief-body">
+      <div class="brief-rows">
+        <div>
+          <div class="brief-row-label">Objective</div>
+          <div class="brief-row-value">${b.objective}</div>
+        </div>
+        <div>
+          <div class="brief-row-label">Hook / Creative Direction</div>
+          <div class="brief-row-value">${b.hook}</div>
+        </div>
+        <div>
+          <div class="brief-row-label">CTA</div>
+          <div class="brief-row-value">${b.cta}</div>
+        </div>
+        <div>
+          <div class="brief-row-label">Targeting / Audience</div>
+          <div class="brief-row-value">${b.audience}</div>
+        </div>
+        <div>
+          <div class="brief-row-label">Success KPIs</div>
+          <div class="brief-row-value"><strong>${b.kpi}</strong></div>
+        </div>
+      </div>
+      <div class="brief-tags">
+        ${b.tags.map(t => `<span class="brief-tag">${t}</span>`).join('')}
+      </div>
+    </div>`;
+  briefsGrid.appendChild(card);
+});
+
+// ── ENTRANCE ANIMATIONS ───────────────────────────────────────────────────────
+const cards = document.querySelectorAll('.kpi-card, .chart-card, .budget-controls, .memo, .scenario-btn, .brief-card, .funnel-fix');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.05 });
+
+cards.forEach((card, i) => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(16px)';
+  card.style.transition = `opacity 0.4s ease ${(i % 6) * 0.06}s, transform 0.4s ease ${(i % 6) * 0.06}s`;
+  observer.observe(card);
+});
+</script>
+</body>
+</html>
