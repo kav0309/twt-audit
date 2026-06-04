@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Whole Truth Foods — Funnel & Media Mix Audit</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Epilogue:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0e0e0b;
+    --surface: #161612;
+    --border: #2a2a24;
+    --accent: #c8f060;
+    --accent2: #f0c840;
+    --accent3: #f06040;
+    --text: #f0ede4;
+    --muted: #7a7a68;
+    --meta: #4267B2;
+    --google: #EA4335;
+    --influencer: #c8f060;
+    --card: #1a1a15;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Epilogue', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0 24px;
+    margin-bottom: 48px;
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #0e0e0b;
+    padding: 6px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .header-meta {
+    text-align: right;
+  }
+
+  .header-meta p {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    line-height: 1.8;
+  }
+
+  /* SECTION TITLES */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* KPI STRIP */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .kpi-card {
+    background: var(--card);
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+  .kpi-card:hover { background: #1e1e18; }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent-color, var(--accent));
+  }
+
+  .kpi-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .kpi-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .kpi-sub {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .kpi-delta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    margin-top: 8px;
+  }
+  .kpi-delta.up { color: var(--accent); }
+  .kpi-delta.down { color: var(--accent3); }
+
+  /* CHARTS GRID */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .chart-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+  }
+
+  .chart-card.full { grid-column: 1 / -1; }
+
+  .chart-title {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .chart-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  canvas { width: 100% !important; }
+
+  /* FUNNEL */
+  .funnel-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .funnel-stage {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+  }
+
+  .funnel-bar-wrap {
+    flex: 1;
+    height: 44px;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .funnel-bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0e0e0b;
+    transition: filter 0.2s;
+    position: relative;
+    white-space: nowrap;
+  }
+  .funnel-bar-wrap:hover .funnel-bar { filter: brightness(1.1); }
+
+  .funnel-label {
+    width: 110px;
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .funnel-stats {
+    width: 120px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .funnel-stats .num { font-size: 15px; font-weight: 700; font-family: 'DM Serif Display', serif; }
+  .funnel-stats .drop {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--accent3);
+  }
+  .funnel-stats .drop.good { color: var(--accent); }
+
+  .funnel-connector {
+    text-align: right;
+    padding-right: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--border);
+    margin: -2px 0;
+  }
+
+  /* BUDGET SLIDER */
+  .budget-controls {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px;
+    margin-bottom: 48px;
+  }
+
+  .budget-title {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .budget-sub {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 28px;
+  }
+
+  .sliders-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 28px;
+  }
+
+  .slider-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .slider-name {
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .channel-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .slider-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 2px solid var(--bg);
+  }
+
+  .budget-results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .budget-result-card {
+    background: var(--card);
+    padding: 18px 16px;
+  }
+
+  .budget-result-card .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .budget-result-card .val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  .budget-result-card .sub {
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* STRATEGY MEMO */
+  .memo {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 36px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .memo::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+
+  .memo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .memo h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .memo-stamp {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  .memo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .memo-section h3 {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .memo-section p, .memo-section li {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: #c8c5bc;
+  }
+
+  .memo-section ul { list-style: none; }
+  .memo-section ul li { padding-left: 18px; position: relative; margin-bottom: 8px; }
+  .memo-section ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  .reco-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 18px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--accent-color, var(--accent));
+  }
+
+  .reco-card .reco-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .reco-card .reco-body {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0;
+    margin-top: 24px;
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-inner p {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* TABS */
+  .tab-bar {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    cursor: pointer;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.15s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* TOOLTIP */
+  .tooltip {
+    display: none;
+    position: absolute;
+    background: var(--text);
+    color: var(--bg);
+    padding: 6px 10px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    pointer-events: none;
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .charts-grid { grid-template-columns: 1fr; }
+    .sliders-grid { grid-template-columns: 1fr; }
+    .budget-results { grid-template-columns: 1fr 1fr; }
+    .memo-grid { grid-template-columns: 1fr; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .header-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div>
+        <div class="brand-badge">📊 Performance Audit · Jun 2026</div>
+        <h1>The Whole Truth Foods<br><em>Funnel & Media Mix Audit</em></h1>
+      </div>
+      <div class="header-meta">
+        <p>Budget Period · FY 2026</p>
+        <p>Monthly Budget · ₹10,00,000</p>
+        <p>Channels · Meta · Google · Influencer</p>
+        <p>Framework · Simulated D2C Model</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- KPI STRIP -->
+  <div class="section-label">Key Performance Indicators</div>
+  <div class="kpi-grid" id="kpiGrid">
+    <div class="kpi-card" style="--accent-color: var(--accent)">
+      <div class="kpi-label">Monthly Budget</div>
+      <div class="kpi-value" style="color:var(--accent)">₹10L</div>
+      <div class="kpi-sub">Across 3 channels</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:#4267B2">
+      <div class="kpi-label">Blended CAC</div>
+      <div class="kpi-value" style="color:#4cc9f0" id="kpi-cac">₹418</div>
+      <div class="kpi-sub">Cost to acquire 1 customer</div>
+      <div class="kpi-delta down" id="kpi-cac-delta">↑ Meta driving up avg</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:var(--accent2)">
+      <div class="kpi-label">Blended ROAS</div>
+      <div class="kpi-value" style="color:var(--accent2)" id="kpi-roas">2.8×</div>
+      <div class="kpi-sub">Revenue per ₹1 spent</div>
+      <div class="kpi-delta up" id="kpi-roas-delta">↑ Influencer anchoring</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:var(--accent3)">
+      <div class="kpi-label">Customers / Month</div>
+      <div class="kpi-value" style="color:var(--accent3)" id="kpi-customers">2,392</div>
+      <div class="kpi-sub">New paid acquisitions</div>
+      <div class="kpi-delta up">↑ Funnel opt. potential</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:#9b59b6">
+      <div class="kpi-label">Funnel Conversion</div>
+      <div class="kpi-value" style="color:#9b59b6">1.8%</div>
+      <div class="kpi-sub">Impression → Purchase</div>
+      <div class="kpi-delta down">↓ Cart abandon = gap</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:var(--accent)">
+      <div class="kpi-label">Est. Monthly Revenue</div>
+      <div class="kpi-value" style="color:var(--accent)" id="kpi-rev">₹28L</div>
+      <div class="kpi-sub">At avg order ₹1,170</div>
+      <div class="kpi-delta up" id="kpi-rev-delta">↑ Healthy for D2C</div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW 1 -->
+  <div class="section-label">Channel Performance</div>
+  <div class="charts-grid">
+
+    <!-- ROAS by channel -->
+    <div class="chart-card">
+      <div class="chart-title">ROAS by Channel</div>
+      <div class="chart-sub">Revenue returned per ₹1 spent · Current allocation</div>
+      <canvas id="roasChart" height="220"></canvas>
+    </div>
+
+    <!-- CAC by channel -->
+    <div class="chart-card">
+      <div class="chart-title">CAC by Channel</div>
+      <div class="chart-sub">Cost to acquire one paying customer (₹)</div>
+      <canvas id="cacChart" height="220"></canvas>
+    </div>
+
+    <!-- Budget allocation donut -->
+    <div class="chart-card">
+      <div class="chart-title">Budget Allocation</div>
+      <div class="chart-sub">Current split across channels</div>
+      <canvas id="budgetChart" height="220"></canvas>
+    </div>
+
+    <!-- Monthly trend -->
+    <div class="chart-card">
+      <div class="chart-title">ROAS Trend — Last 6 Months</div>
+      <div class="chart-sub">Channel ROAS over time · simulated trajectory</div>
+      <canvas id="trendChart" height="220"></canvas>
+    </div>
+
+  </div>
+
+  <!-- FUNNEL -->
+  <div class="section-label">Conversion Funnel</div>
+  <div class="chart-card full" style="margin-bottom:48px">
+    <div class="chart-title">Full Funnel — Impression to Repeat Purchase</div>
+    <div class="chart-sub">Monthly volume estimates · drop-off % at each stage · Gap analysis</div>
+    <div class="funnel-wrap" id="funnelWrap"></div>
+  </div>
+
+  <!-- INTERACTIVE BUDGET SIMULATOR -->
+  <div class="section-label">Budget Simulator</div>
+  <div class="budget-controls">
+    <div class="budget-title">Reallocate ₹10L — See the Impact</div>
+    <div class="budget-sub">Drag the sliders to simulate budget reallocation. Metrics update live.</div>
+
+    <div class="sliders-grid">
+      <div class="slider-group">
+        <label>
+          <span class="slider-name"><span class="channel-dot" style="background:#4267B2"></span>Meta Ads</span>
+          <span class="slider-pct" id="metaPct">50%</span>
+        </label>
+        <input type="range" id="metaSlider" min="10" max="80" value="50" step="5">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:6px">
+          <span>ROAS: 2.1×</span><span>CAC: ₹520</span>
+        </div>
+      </div>
+      <div class="slider-group">
+        <label>
+          <span class="slider-name"><span class="channel-dot" style="background:#EA4335"></span>Google Ads</span>
+          <span class="slider-pct" id="googlePct">20%</span>
+        </label>
+        <input type="range" id="googleSlider" min="10" max="60" value="20" step="5">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:6px">
+          <span>ROAS: 3.4×</span><span>CAC: ₹320</span>
+        </div>
+      </div>
+      <div class="slider-group">
+        <label>
+          <span class="slider-name"><span class="channel-dot" style="background:var(--accent)"></span>Influencer</span>
+          <span class="slider-pct" id="influPct">30%</span>
+        </label>
+        <input type="range" id="influSlider" min="10" max="60" value="30" step="5">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:6px">
+          <span>ROAS: 3.8×</span><span>CAC: ₹280</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="budget-results">
+      <div class="budget-result-card">
+        <div class="label">Total Budget</div>
+        <div class="val" style="color:var(--accent)">₹10,00,000</div>
+        <div class="sub">Fixed monthly</div>
+      </div>
+      <div class="budget-result-card">
+        <div class="label">Simulated ROAS</div>
+        <div class="val" style="color:var(--accent2)" id="sim-roas">2.8×</div>
+        <div class="sub" id="sim-roas-sub">Weighted average</div>
+      </div>
+      <div class="budget-result-card">
+        <div class="label">Simulated CAC</div>
+        <div class="val" style="color:#4cc9f0" id="sim-cac">₹418</div>
+        <div class="sub" id="sim-cac-sub">Weighted average</div>
+      </div>
+      <div class="budget-result-card">
+        <div class="label">Est. Revenue</div>
+        <div class="val" style="color:var(--accent3)" id="sim-rev">₹28.0L</div>
+        <div class="sub" id="sim-rev-sub">At current ROAS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRATEGY MEMO -->
+  <div class="section-label">Strategy Recommendation</div>
+  <div class="memo">
+    <div class="memo-header">
+      <div>
+        <h2>Memo: Where to Reallocate Budget<br>& Why</h2>
+      </div>
+      <div class="memo-stamp">
+        To · Performance Marketing Lead<br>
+        From · Growth Analyst<br>
+        Date · June 2026<br>
+        Re · TWT Media Mix Optimisation
+      </div>
+    </div>
+
+    <div class="memo-grid">
+      <div>
+        <div class="memo-section">
+          <h3>The Problem</h3>
+          <p>50% of TWT's budget currently flows to Meta Ads — the lowest-ROAS channel at 2.1×. Google (3.4×) and Influencer (3.8×) are consistently outperforming but remain underfunded. The blended CAC of ₹418 is dragged up primarily by Meta's ₹520 CAC, which is 85% higher than Influencer's ₹280.</p>
+        </div>
+        <br>
+        <div class="memo-section">
+          <h3>Funnel Gaps Identified</h3>
+          <ul>
+            <li><strong>Cart abandonment is the biggest leak</strong> — 68% drop from Add-to-Cart to Purchase. Industry benchmark for D2C food is ~55%. TWT has a 13pt gap worth fixing before scaling spend.</li>
+            <li><strong>Awareness-to-Click is weak on Meta</strong> — 2.1% CTR suggests creatives aren't landing. TWT's transparency-first messaging needs more education-format content (carousels, ingredient explainers) vs. direct conversion ads.</li>
+            <li><strong>Repeat purchase rate at 28% is below potential</strong> — email/WhatsApp retention flows are likely underutilised given a health-conscious, loyal customer base.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="memo-section">
+          <h3>Recommended Reallocation</h3>
+
+          <div class="reco-card" style="--accent-color:#EA4335">
+            <div class="reco-title">↑ Google: 20% → 35%</div>
+            <div class="reco-body">TWT's customers are search-intent buyers — "high protein bar India", "clean label snacks". Google Search captures bottom-of-funnel demand at a 3.4× ROAS. Every ₹1 moved from Meta to Google here saves ~₹200 in CAC.</div>
+          </div>
+
+          <div class="reco-card" style="--accent-color:var(--accent)">
+            <div class="reco-title">↑ Influencer: 30% → 40%</div>
+            <div class="reco-body">TWT's best-fit channel — nutritionist, fitness, and honest-review creators align perfectly with the brand's "nothing to hide" positioning. Highest ROAS (3.8×), lowest CAC (₹280). Micro-influencers (50K–300K) over mega.</div>
+          </div>
+
+          <div class="reco-card" style="--accent-color:#4267B2">
+            <div class="reco-title">↓ Meta: 50% → 25%</div>
+            <div class="reco-body">Don't cut Meta entirely — retargeting and lookalike audiences still work. But shift Meta's role from acquisition to retargeting cart abandoners and warming influencer audiences. Expected CAC drop of ₹60–80 blended.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p>The Whole Truth Foods · Funnel & Media Mix Audit · Jun 2026 · Simulated Model</p>
+      <p>MBA Marketing Portfolio · github.com/kav0309</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+// ── DATA ────────────────────────────────────────────────────────────────────
+const CHANNEL_DATA = {
+  meta:       { roas: 2.1, cac: 520,  color: '#4267B2', label: 'Meta Ads' },
+  google:     { roas: 3.4, cac: 320,  color: '#EA4335', label: 'Google Ads' },
+  influencer: { roas: 3.8, cac: 280,  color: '#c8f060', label: 'Influencer' },
+};
+
+const FUNNEL_STAGES = [
+  { stage: 'Impressions',     volume: 1800000, color: '#4267B2', pct: 100 },
+  { stage: 'Reach / Clicks',  volume: 54000,   color: '#5b7fd4', pct: 3.0 },
+  { stage: 'Website Visits',  volume: 38000,   color: '#7b9fd4', pct: 70.4 },
+  { stage: 'Product Page View',volume: 22000,  color: '#EA4335', pct: 57.9 },
+  { stage: 'Add to Cart',     volume: 8800,    color: '#f07040', pct: 40.0 },
+  { stage: 'Purchase',        volume: 2800,    color: '#c8f060', pct: 31.8 },
+  { stage: 'Repeat Purchase', volume: 784,     color: '#90d040', pct: 28.0 },
+];
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+const TREND_DATA = {
+  meta:       [1.8, 1.9, 2.0, 2.1, 2.0, 2.1],
+  google:     [2.8, 3.0, 3.1, 3.2, 3.3, 3.4],
+  influencer: [3.2, 3.4, 3.5, 3.6, 3.7, 3.8],
+};
+
+// ── CHART DEFAULTS ──────────────────────────────────────────────────────────
+Chart.defaults.color = '#7a7a68';
+Chart.defaults.font.family = "'DM Mono', monospace";
+Chart.defaults.font.size = 11;
+
+const gridOpts = {
+  color: '#2a2a24',
+  drawBorder: false,
+};
+
+// ── ROAS CHART ───────────────────────────────────────────────────────────────
+new Chart(document.getElementById('roasChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Meta Ads', 'Google Ads', 'Influencer'],
+    datasets: [{
+      data: [2.1, 3.4, 3.8],
+      backgroundColor: ['#4267B2cc', '#EA4335cc', '#c8f060cc'],
+      borderColor:     ['#4267B2',   '#EA4335',   '#c8f060'],
+      borderWidth: 1,
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw}× ROAS` }}
+    },
+    scales: {
+      x: { grid: gridOpts, ticks: { color: '#7a7a68' }},
+      y: { grid: gridOpts, ticks: { color: '#7a7a68', callback: v => v+'×' }, min: 0, max: 5 }
+    }
+  }
+});
+
+// ── CAC CHART ────────────────────────────────────────────────────────────────
+new Chart(document.getElementById('cacChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Meta Ads', 'Google Ads', 'Influencer'],
+    datasets: [{
+      data: [520, 320, 280],
+      backgroundColor: ['#4267B2cc', '#EA4335cc', '#c8f060cc'],
+      borderColor:     ['#4267B2',   '#EA4335',   '#c8f060'],
+      borderWidth: 1,
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ₹${ctx.raw} CAC` }}
+    },
+    scales: {
+      x: { grid: gridOpts, ticks: { color: '#7a7a68' }},
+      y: { grid: gridOpts, ticks: { color: '#7a7a68', callback: v => '₹'+v }, min: 0, max: 650 }
+    }
+  }
+});
+
+// ── BUDGET DONUT ─────────────────────────────────────────────────────────────
+new Chart(document.getElementById('budgetChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Meta Ads (50%)', 'Google Ads (20%)', 'Influencer (30%)'],
+    datasets: [{
+      data: [50, 20, 30],
+      backgroundColor: ['#4267B2cc', '#EA4335cc', '#c8f060cc'],
+      borderColor: '#0e0e0b',
+      borderWidth: 3,
+      hoverOffset: 8,
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '68%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { color: '#7a7a68', padding: 16, font: { size: 11 } }
+      },
+      tooltip: { callbacks: { label: ctx => ` ₹${(ctx.raw * 10000).toLocaleString('en-IN')}` }}
+    }
+  }
+});
+
+// ── TREND CHART ───────────────────────────────────────────────────────────────
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels: MONTHS,
+    datasets: [
+      { label: 'Meta Ads',   data: TREND_DATA.meta,       borderColor: '#4267B2', backgroundColor: '#4267B220', tension: 0.4, fill: true, pointRadius: 3 },
+      { label: 'Google Ads', data: TREND_DATA.google,     borderColor: '#EA4335', backgroundColor: '#EA433520', tension: 0.4, fill: true, pointRadius: 3 },
+      { label: 'Influencer', data: TREND_DATA.influencer, borderColor: '#c8f060', backgroundColor: '#c8f06020', tension: 0.4, fill: true, pointRadius: 3 },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { color: '#7a7a68', padding: 12 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}× ROAS` }}
+    },
+    scales: {
+      x: { grid: gridOpts, ticks: { color: '#7a7a68' }},
+      y: { grid: gridOpts, ticks: { color: '#7a7a68', callback: v => v+'×' }, min: 1, max: 5 }
+    }
+  }
+});
+
+// ── FUNNEL ────────────────────────────────────────────────────────────────────
+const funnelWrap = document.getElementById('funnelWrap');
+const maxVol = FUNNEL_STAGES[0].volume;
+
+FUNNEL_STAGES.forEach((s, i) => {
+  const barPct = (s.volume / maxVol * 100).toFixed(1);
+  const drop = i > 0
+    ? ((1 - s.volume / FUNNEL_STAGES[i-1].volume) * 100).toFixed(0)
+    : null;
+
+  const row = document.createElement('div');
+  row.className = 'funnel-stage';
+  row.innerHTML = `
+    <div class="funnel-label">${s.stage}</div>
+    <div class="funnel-bar-wrap">
+      <div class="funnel-bar" style="width:${barPct}%;background:${s.color}">
+        ${Number(s.volume).toLocaleString('en-IN')}
+      </div>
+    </div>
+    <div class="funnel-stats">
+      <div class="num">${barPct}%</div>
+      ${drop ? `<div class="drop ${drop < 50 ? 'good' : ''}">↓ ${drop}% drop</div>` : '<div class="drop good">Top of funnel</div>'}
+    </div>
+  `;
+  funnelWrap.appendChild(row);
+
+  if (i < FUNNEL_STAGES.length - 1) {
+    const conn = document.createElement('div');
+    conn.className = 'funnel-connector';
+    conn.textContent = '│';
+    funnelWrap.appendChild(conn);
+  }
+});
+
+// ── BUDGET SIMULATOR ──────────────────────────────────────────────────────────
+const TOTAL_BUDGET = 1000000;
+const CHANNEL_METRICS = {
+  meta:   { roas: 2.1, cac: 520 },
+  google: { roas: 3.4, cac: 320 },
+  influ:  { roas: 3.8, cac: 280 },
+};
+
+function updateSimulator() {
+  let meta   = parseInt(document.getElementById('metaSlider').value);
+  let google = parseInt(document.getElementById('googleSlider').value);
+  let influ  = parseInt(document.getElementById('influSlider').value);
+
+  const total = meta + google + influ;
+  meta   = Math.round(meta   / total * 100);
+  google = Math.round(google / total * 100);
+  influ  = 100 - meta - google;
+
+  document.getElementById('metaPct').textContent   = meta + '%';
+  document.getElementById('googlePct').textContent = google + '%';
+  document.getElementById('influPct').textContent  = influ + '%';
+
+  const mW = meta / 100, gW = google / 100, iW = influ / 100;
+  const blendedROAS = (CHANNEL_METRICS.meta.roas * mW + CHANNEL_METRICS.google.roas * gW + CHANNEL_METRICS.influ.roas * iW);
+  const blendedCAC  = (CHANNEL_METRICS.meta.cac  * mW + CHANNEL_METRICS.google.cac  * gW + CHANNEL_METRICS.influ.cac  * iW);
+  const estRev      = TOTAL_BUDGET * blendedROAS / 100000;
+
+  document.getElementById('sim-roas').textContent     = blendedROAS.toFixed(1) + '×';
+  document.getElementById('sim-cac').textContent      = '₹' + Math.round(blendedCAC);
+  document.getElementById('sim-rev').textContent      = '₹' + estRev.toFixed(1) + 'L';
+
+  // Update header KPIs too
+  document.getElementById('kpi-roas').textContent      = blendedROAS.toFixed(1) + '×';
+  document.getElementById('kpi-cac').textContent       = '₹' + Math.round(blendedCAC);
+  document.getElementById('kpi-rev').textContent       = '₹' + estRev.toFixed(1) + 'L';
+  const customers = Math.round(TOTAL_BUDGET / blendedCAC);
+  document.getElementById('kpi-customers').textContent = customers.toLocaleString('en-IN');
+}
+
+document.getElementById('metaSlider').addEventListener('input', updateSimulator);
+document.getElementById('googleSlider').addEventListener('input', updateSimulator);
+document.getElementById('influSlider').addEventListener('input', updateSimulator);
+
+updateSimulator();
+
+// ── ENTRANCE ANIMATIONS ───────────────────────────────────────────────────────
+const cards = document.querySelectorAll('.kpi-card, .chart-card, .budget-controls, .memo');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.05 });
+
+cards.forEach(card => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(16px)';
+  card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  observer.observe(card);
+});
+</script>
+</body>
+</html>
